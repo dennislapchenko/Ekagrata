@@ -23,7 +23,8 @@ module.exports = app => {
 				res.status(200).send();
 				return;
 			} else {
-				res.status(400).send('bad fields');
+				res.json({message: "bad or duplicate fields", expected: "name, code, description, [sounds]"});
+				res.status(400).send();
 				return;
 			}
 		}
@@ -41,7 +42,8 @@ module.exports = app => {
 				res.status(200).send();
 				return;
 			} else {
-				res.status(400).send('bad fields');
+				res.json({message: "Bad or duplicate fields", expected: "name, code, description, iconPath, [dataPath]"});
+				res.status(400).send();
 				return;
 			}
 		}

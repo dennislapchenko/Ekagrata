@@ -28,7 +28,7 @@ module.exports = app => {
 				return;
 			}
 		}
-		res.status(500).send();
+		res.status(500).send('no request body');
 	});
 
 	app.post('/api/sound/create', async (req, res) => {
@@ -47,7 +47,7 @@ module.exports = app => {
 				return;
 			}
 		}
-		res.status(500).send();
+		res.status(500).send('no request body');
 	});
 };
 

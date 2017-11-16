@@ -12,6 +12,7 @@ require("./models/Sound");
 require("./models/SoundGrid");
 
 const server = express();
+server.use(bodyParser.json());
 require("./routes")(server); //to pass 'server' object to routes to assign route binds
 
 const basicAuth = auth.connect(auth.basic(
@@ -23,7 +24,7 @@ const basicAuth = auth.connect(auth.basic(
 );
 
 //app.use are middleware that preprocesses requests before they get to handlers
-server.use(bodyParser.json());
+
 server.use(basicAuth, serveStatic(path.join(__dirname, 'public')));
 
 const PORT = process.env.PORT || 5549; //get port for Heroku's config or use default

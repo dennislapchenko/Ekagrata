@@ -70,7 +70,7 @@ module.exports.createSound = async (sound) => {
 };
 
 const validateSoundGrid = async (soundGrid) => {
-	if(soundGrid.sounds === null || soundGrid.sounds.length < 1) {
+	if(soundGrid.sounds === undefined || soundGrid.sounds.length < 1) {
 		console.log("sound grids sound codes were not present");
 		return false;
 	}

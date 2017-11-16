@@ -1,13 +1,13 @@
-#Piti - access concentration
+# Piti - access concentration
 
-##Components:
+## Components:
 Restful API
 MongoDB
 Static audio & image files
 
-##Endpoints:
-####GET: /api/sound/grid/:soundGridCode
-_Request:
+## Endpoints:
+#### GET: /api/sound/grid/:soundGridCode
+_ Request:
 ```javascript
 {
     "name": gridName,
@@ -28,8 +28,8 @@ _Request:
 }
 ```
 ---
-####POST: /api/sound/create
-_Body:
+#### POST: /api/sound/create
+_ Body:
 ```javascript
 {
 	"name": soundName,
@@ -40,8 +40,8 @@ _Body:
 }
 ```
 ---
-####POST: /api/sound/grid/create
-_Body:
+#### POST: /api/sound/grid/create
+_ Body:
 ```javascript
 {
 	"name": soundGridName,

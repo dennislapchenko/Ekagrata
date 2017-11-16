@@ -1,31 +1,31 @@
-//import express, mongoose, routes
-
 const express = require("express");
 const keys = require("./config/keys");
 const bodyParser = require("body-parser");
 const path = require('path');
 const serveStatic = require('serve-static');
+const auth = require('http-auth');
 const mongoose = require("mongoose");
 const props = require("./config/properties");
 
+mongoose.connect(keys.mongoURI);
 require("./models/Sound");
 require("./models/SoundGrid");
 
-const routes = require("./routes");
-
-//create server
 const server = express();
-//attach mongoose
-mongoose.connect(keys.mongoURI);
+require("./routes")(server); //to pass 'server' object to routes to assign route binds
+
+const basicAuth = auth.connect(auth.basic(
+		{ realm: "Static Serves Basic Auth" },
+		(username, password, callback) => {
+			callback('pitisavage' === username && 'pitisavagepw' === password);
+		}
+	)
+);
 
 //app.use are middleware that preprocesses requests before they get to handlers
 server.use(bodyParser.json());
-server.use(serveStatic(path.join(__dirname, 'public')));
+server.use(basicAuth, serveStatic(path.join(__dirname, 'public')));
 
-//attach routes
-routes(server); //to pass 'server' object to routes to assign route binds
-
-//set port
 const PORT = process.env.PORT || 5549; //get port for Heroku's config or use default
 server.listen(PORT);
 

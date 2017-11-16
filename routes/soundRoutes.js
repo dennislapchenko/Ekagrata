@@ -5,10 +5,9 @@ module.exports = app => {
 	app.get("/api/sound/grid/:soundGridCode", async (req, res) => {
 		const grid = await soundService.getSoundGrid(req.params.soundGridCode);
 		if(grid) {
-			res.json(grid);
-			res.status(200).send();
+			res.status(200).send(grid);
 		} else {
-			res.status(400).send("no grid found");
+			res.status(400).send({message: "no grid found"});
 		}
 	});
 
@@ -21,11 +20,8 @@ module.exports = app => {
 			const result = await soundService.createSoundGrid(payload);
 			if(result) {
 				res.status(200).send();
-				return;
 			} else {
-				res.json({message: "bad or duplicate fields", expected: "name, code, description, [sounds]"});
-				res.status(400).send();
-				return;
+				res.status(400).send({message: "bad or duplicate fields", expected: "name, code, description, [sounds]"});
 			}
 		}
 		res.status(500).send('no request body');
@@ -34,17 +30,15 @@ module.exports = app => {
 	app.post('/api/sound/create', async (req, res) => {
 		const payload = req.body;
 		console.log('POST: /api/sound/create\nBody: ');
+		console.log(req.headers);
 		console.log(payload);
 		
 		if(payload) {
 			const result = await soundService.createSound(payload);
 			if(result) {
 				res.status(200).send();
-				return;
 			} else {
-				res.json({message: "Bad or duplicate fields", expected: "name, code, description, iconPath, [dataPath]"});
-				res.status(400).send();
-				return;
+				res.status(200).send({message: "Bad or duplicate fields", expected: "name, code, description, iconPath, [dataPath]"});
 			}
 		}
 		res.status(500).send('no request body');

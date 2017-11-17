@@ -30,7 +30,6 @@ module.exports = app => {
 	app.post('/api/sound/create', async (req, res) => {
 		const payload = req.body;
 		console.log('POST: /api/sound/create\nBody: ');
-		console.log(req.headers);
 		console.log(payload);
 		
 		if(payload) {
